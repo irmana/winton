@@ -11,10 +11,11 @@ CONST_WINDOW_SIZE = 3 # min=3, max=181
 CONST_ROW_TERM = 0 # number of rows to extract features, all = 0
 
 def ret_not_nan(r, s, e): #row with returns, start id, end id
+	bool = True
 	for i in range(s, e):
-        	if (math.isnan(r['Ret_%s'%(i,)])):
-			return False
-	return True
+		if (math.isnan(r['Ret_%s'%(i,)])):
+			bool = False
+	return bool
 
 def get_keys(r):
 	keys = []
@@ -63,7 +64,7 @@ def get_features(r, i1, i2):
 
 	var = 0
 	for i in range(i1, i2):
-                ret = r['Ret_%s'%(i,)]
+		ret = r['Ret_%s'%(i,)]
 		var += math.pow(f['Avg']-ret, 2)
 	#standard deviation
 	f['Std'] = math.sqrt(var/(i2-i1))
@@ -79,7 +80,7 @@ df = pd.read_csv('train.csv', sep=',')
 l = len(df.index)
 for index, row in df.iterrows():
 	if (index%100 == 0):
-		print "%s/%s"%(index,l,)
+		print ("%s/%s"%(index,l,))
 
 	#print index
 	row['Ret_0'] = row['Ret_MinusTwo']
