@@ -1,0 +1,20 @@
+import numpy as np
+from sklearn import svm
+
+
+SVC = svm.SVC(kernel='linear')
+SVC.kernel
+
+X = np.array([[0, 0], [1, 1]])
+y = [0, 1]
+clf = svm.SVC(kernel='precomputed')
+# linear kernel computation
+gram = np.dot(X, X.T)
+clf.fit(gram, y) 
+SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape=None, degree=3, gamma='auto',
+    kernel='precomputed', max_iter=-1, probability=False,
+    random_state=None, shrinking=True, tol=0.001, verbose=False)
+# predict on training examples
+clf.predict(gram)
+array([0, 1])
